@@ -1,8 +1,11 @@
 # Changes to the Mapbox Navigation SDK for iOS
 
-## v0.35.0
+## master
 
 * Added a new dependency on MapboxAccounts for flexible pricing. Don't forget to add the library to "Embedded Binaries" list in Xcode if you are integrating this SDK with Carthage. See [mapbox.com/pricing](https://www.mapbox.com/pricing/) for more information about pricing. ([#2151](https://github.com/mapbox/mapbox-navigation-ios/pull/2151))
+
+## v0.35.0
+
 * Upgraded to [Mapbox Maps SDK for iOS v5.1.0](https://github.com/mapbox/mapbox-gl-native/releases/tag/ios-v5.1.0). ([#2134](https://github.com/mapbox/mapbox-navigation-ios/pull/2134))
 * Added the ability to define a custom view controller for the top banner via `NavigationOptions.topBanner`. ([#2121](https://github.com/mapbox/mapbox-navigation-ios/pull/2121))
 * StyleManager now posts a `StyleManagerDidApplyStyleNotification` when a style gets applied due to a change of day of time, or when entering or exiting a tunnel. ([#2148](https://github.com/mapbox/mapbox-navigation-ios/pull/2148))
