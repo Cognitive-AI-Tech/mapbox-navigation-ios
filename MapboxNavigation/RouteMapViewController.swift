@@ -220,9 +220,21 @@ class RouteMapViewController: UIViewController {
     deinit {
         suspendNotifications()
     }
+    
+    @objc func mapViewClickedMute(){
+        navigationView.muteButton.isSelected = true
+        NavigationSettings.shared.voiceMuted = true
+    }
+    @objc func mapViewClickedUNMute(){
+        navigationView.muteButton.isSelected = false
+        NavigationSettings.shared.voiceMuted = false
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(mapViewClickedMute), name: NSNotification.Name(rawValue: "mapViewClickedMute"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(mapViewClickedUNMute), name: NSNotification.Name(rawValue: "mapViewClickedUNMute"), object: nil)
 
         navigationView.muteButton.isSelected = NavigationSettings.shared.voiceMuted
         mapView.compassView.isHidden = true
@@ -253,6 +265,11 @@ class RouteMapViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "mapViewClickedMute"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(rawValue: "mapViewClickedUNMute"), object: nil)
+        removeTimer()
+        
         styleObservation = nil
     }
 

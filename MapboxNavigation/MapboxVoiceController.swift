@@ -76,6 +76,10 @@ open class MapboxVoiceController: RouteVoiceController, AVAudioPlayerDelegate {
     @objc public func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         do {
             try unDuckAudio()
+            
+            let noti = Notification.init(name: Notification.Name(rawValue: "endSpeakingByMapBox"), object: nil, userInfo: nil)
+            NotificationCenter.default.post(noti)
+            
         } catch {
             voiceControllerDelegate?.voiceController?(self, spokenInstructionsDidFailWith: error)
         }
@@ -226,6 +230,10 @@ open class MapboxVoiceController: RouteVoiceController, AVAudioPlayerDelegate {
                 strongSelf.audioPlayer = try strongSelf.audioPlayerType.init(data: data)
                 strongSelf.audioPlayer?.prepareToPlay()
                 strongSelf.audioPlayer?.delegate = strongSelf
+                
+                let noti = Notification.init(name: Notification.Name(rawValue: "startSpeakingByMapBox"), object: nil, userInfo: nil)
+                NotificationCenter.default.post(noti)
+                
                 try strongSelf.duckAudio()
                 let played = strongSelf.audioPlayer?.play() ?? false
                 
